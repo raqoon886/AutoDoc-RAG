@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "init_project",
+            "type": "shell",
+            "command": "mkdir -p src docs/architecture docs/api_specs notebooks data/vector_db output && touch README.md .gitignore requirements.txt",
+            "options": {
+                "cwd": "."
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
