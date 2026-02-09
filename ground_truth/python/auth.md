@@ -1,0 +1,6 @@
+# auth.py
+
+requests.auth
+~~~~~~~~~~~~~
+
+This module contains the authentication handlers for Requests.

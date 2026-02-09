@@ -1,0 +1,11 @@
+# hooks.py
+
+requests.hooks
+~~~~~~~~~~~~~~
+
+This module provides the capabilities for the Requests hooks system.
+
+Available hooks:
+
+``response``:
+    The response generated from a Request.

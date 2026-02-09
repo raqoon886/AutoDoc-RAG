@@ -1,0 +1,8 @@
+# compat.py
+
+requests.compat
+~~~~~~~~~~~~~~~
+
+This module previously handled import compatibility issues
+between Python 2 and Python 3. It remains for backwards
+compatibility until the next major version.

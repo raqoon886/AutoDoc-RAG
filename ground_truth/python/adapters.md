@@ -1,0 +1,7 @@
+# adapters.py
+
+requests.adapters
+~~~~~~~~~~~~~~~~~
+
+This module contains the transport adapters that Requests uses to define
+and maintain connections.

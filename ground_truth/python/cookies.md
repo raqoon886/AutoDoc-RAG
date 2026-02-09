@@ -1,0 +1,8 @@
+# cookies.py
+
+requests.cookies
+~~~~~~~~~~~~~~~~
+
+Compatibility code to be able to use `http.cookiejar.CookieJar` with requests.
+
+requests.utils imports from here, so be careful with imports.
