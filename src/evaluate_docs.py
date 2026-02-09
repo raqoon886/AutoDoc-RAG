@@ -125,11 +125,11 @@ def evaluate_documentation(source_path: str, no_rag_path: str, rag_path: str):
 Your task is to evaluate the quality of API documentation generated from source code.
 
 **Evaluation Criteria** (score each 1-10):
-1. **Completeness**: Does the doc cover all classes, methods, parameters, and return values?
-2. **Accuracy**: Are the descriptions factually correct based on the source code?
+1. **Completeness & Detail**: Does the doc cover all classes, methods, parameters, and return values with *detailed descriptions*? (Simple summaries should receive low scores)
+2. **Accuracy & Insight**: Are the descriptions factually correct and do they provide useful *insights* beyond just reading the code?
 3. **Clarity**: Is the documentation easy to understand for developers?
-4. **Structure**: Is the Markdown well-organized with proper headings and formatting?
-5. **Context Enrichment**: Does the doc reference external standards, best practices, or related documents?
+4. **Structure & Professionalism**: Is the Markdown well-organized? Does it look like official library documentation?
+5. **Context Enrichment (CRITICAL)**: Does the doc reference external standards, design patterns, or related architectural concepts? **If no external context or references are mentioned, the maximum score for this category is 2.**
 
 ---
 

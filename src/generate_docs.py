@@ -80,32 +80,46 @@ def generate_documentation(file_path: str, mode: str):
     )
 
     # Prepare context based on mode
-    rag_context = "None provided."
+    rag_context = ""
     if mode == "rag":
         rag_context = get_rag_context(file_content, file_name, k=5)
-        if not rag_context:
-            rag_context = "None provided."
     
-    # Unified Prompt Template (same structure for both modes)
-    template = """You are an expert technical writer and software engineer.
+    # Define Prompt based on mode
+    if mode == "no-rag":
+        # Minimal baseline prompt - pure LLM capability test
+        template = """Analyze the following source code file: "{file_name}" and provide a summary of its contents.
+
+Describe the main components and functions briefly.
+
+**Source Code**:
+```
+{file_content}
+```
+
+**Summary**:
+"""
+    else:
+        # RAG mode: Aggressive context utilization
+        template = """You are an expert technical writer and software engineer.
 Your task is to generate comprehensive API documentation for the following source code file: "{file_name}"
 
-You may have access to additional reference materials retrieved from a knowledge base. 
-If reference context is provided, use it to enhance your documentation with:
-- Proper terminology from design documents
-- Connections to related components
-- Best practices from style guides
+**IMPORTANT: You have access to valuable reference materials from a knowledge base.**
+**You MUST actively incorporate this context into your documentation:**
+- Use terminology and naming conventions from the reference materials
+- Reference related architecture patterns or design decisions
+- Cite relevant coding standards (e.g., C++ Core Guidelines) when applicable
+- Even if the context seems only partially related, find ways to enrich the documentation with it
 
-**Reference Context** (from VectorDB):
+**Reference Context** (from VectorDB - USE THIS ACTIVELY):
 {rag_context}
 
 ---
 
 Please analyze the code below and produce a structured Markdown document.
 The documentation should include:
-1. **Module Overview**: A brief summary of what this file/module does. If relevant reference context is available, incorporate architectural insights.
+1. **Module Overview**: Summarize what this file/module does. Connect it to architectural concepts from the reference context.
 2. **Classes/Structs**: For each class or struct:
-    - Description (enriched with context from references if applicable)
+    - Description (enriched with insights from references)
     - Member Variables (if public/protected)
     - Methods (Signature + Description + Parameters + Return Value)
 3. **Functions**: For global functions:
@@ -114,14 +128,13 @@ The documentation should include:
     - Parameters
     - Return Value
 4. **Usage Example**: A code snippet showing how to use the key components.
-5. **Related References**: If applicable, mention related design documents or standards from the context. If no relevant context was provided, omit this section.
+5. **Related References**: List any relevant standards, guidelines, or architecture documents from the context. This section is REQUIRED if any reference context was provided.
 
 **Important**:
 - Use GitHub Flavored Markdown.
 - Ensure the tone is professional and clear.
-- Combine code analysis with retrieved context for richer documentation when context is available.
-- If context is "None provided." or not relevant to a specific part, rely solely on code analysis.
-- Do not make up information not present in the code or provided context.
+- Prioritize incorporating reference context to create richer, more informative documentation.
+- Do not make up information, but DO actively use the provided context.
 
 ---
 **Source Code**:
@@ -137,11 +150,14 @@ The documentation should include:
 
     print(f"⏳ Generating documentation (Mode: {mode})... (This may take a while)")
     try:
-        doc_content = chain.invoke({
+        invoke_args = {
             "file_name": file_name,
-            "file_content": file_content,
-            "rag_context": rag_context
-        })
+            "file_content": file_content
+        }
+        if mode == "rag":
+            invoke_args["rag_context"] = rag_context
+        
+        doc_content = chain.invoke(invoke_args)
     except Exception as e:
         print(f"❌ Error during generation: {e}")
         return
