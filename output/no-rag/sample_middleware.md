@@ -1,46 +1,95 @@
 **Module Overview**
 ================
 
-The `sample_middleware.cpp` file provides an implementation of a middleware service for Ubuntu. It includes a configuration structure and a class responsible for managing the lifecycle of the service.
+The `sample_middleware.cpp` file provides a basic implementation of a middleware service for Ubuntu. The module includes a configuration structure and a class responsible for managing the lifecycle of the service.
 
 **Classes/Structs**
 -----------------
 
 ### Config
+
 #### Description
-Configuration structure for the middleware service.
+Configuration structure for the service.
 
-#### Member Variables
-* `service_name`: The name of the service.
-* `port`: The port number used by the service.
-* `enable_logging`: A boolean indicating whether logging is enabled.
+#### Members
 
-#### Methods
-
-None.
+| Member | Type | Description |
+| --- | --- | --- |
+| `service_name` | `std::string` | Name of the service. |
+| `port` | `int` | Port number to listen on. |
+| `enable_logging` | `bool` | Flag to enable logging. |
 
 ### ServiceManager
+
 #### Description
 Manages the lifecycle of the middleware service.
 
-#### Member Variables
-* `config_`: The configuration structure for the service.
-* `is_running_`: A boolean indicating whether the service is running.
+#### Members
+
+| Member | Type | Description |
+| --- | --- | --- |
+| `config_` | `Config` | Configuration structure for the service. |
+| `is_running_` | `bool` | Flag indicating whether the service is running. |
 
 #### Methods
 
-#### Signature | Description | Parameters | Return Value
-----------------|-------------|------------|-------------
-`ServiceManager(const Config& config)` | Initializes a new instance of the ServiceManager class. | `config`: The configuration structure for the service. | N/A
-`~ServiceManager()` | Destructor for the ServiceManager class. | N/A | N/A
-`bool initialize()` | Initializes the middleware service. | N/A | `true` if initialization is successful, `false` otherwise.
-`void run()` | Starts the main loop of the middleware service. | N/A | N/A
-`void stop()` | Stops the middleware service. | N/A | N/A
+### ServiceManager::ServiceManager(const Config& config)
+
+#### Signature
+`ServiceManager(const Config& config)`
+
+#### Description
+Constructs a new instance of the `ServiceManager` class with the provided configuration.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `config` | `const Config&` | Configuration structure for the service. |
+
+### ServiceManager::~ServiceManager()
+
+#### Signature
+`~ServiceManager()`
+
+#### Description
+Destructs the `ServiceManager` instance, stopping the service.
+
+### ServiceManager::initialize()
+
+#### Signature
+`bool initialize()`
+
+#### Description
+Initializes the service with the provided configuration.
+
+#### Return Value
+
+| Type | Description |
+| --- | --- |
+| `true` | Initialization successful. |
+| `false` | Initialization failed. |
+
+### ServiceManager::run()
+
+#### Signature
+`void run()`
+
+#### Description
+Starts the main loop of the service.
+
+### ServiceManager::stop()
+
+#### Signature
+`void stop()`
+
+#### Description
+Stops the service.
 
 **Functions**
 -------------
 
-None.
+None
 
 **Usage Example**
 ----------------
@@ -50,11 +99,11 @@ None.
 
 int main() {
     Config config;
-    config.service_name = "MyMiddleware";
+    config.service_name = "MyService";
     config.port = 8080;
     config.enable_logging = true;
 
-    Middleware::ServiceManager manager(config);
+    ServiceManager manager(config);
     if (manager.initialize()) {
         manager.run();
     } else {
@@ -65,4 +114,4 @@ int main() {
 }
 ```
 
-This example demonstrates how to create an instance of the `ServiceManager` class, initialize it with a configuration structure, and start the main loop.
+This example demonstrates how to create a `ServiceManager` instance with a custom configuration and start the service.

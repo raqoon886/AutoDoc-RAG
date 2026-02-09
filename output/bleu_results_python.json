@@ -1,0 +1,30 @@
+{
+  "no_rag": {
+    "bleu": {
+      "bleu_1": 7.54,
+      "bleu_2": 3.3,
+      "bleu_3": 1.94,
+      "bleu_4": 1.23
+    },
+    "overlap": {
+      "precision": 45.31,
+      "recall": 34.94,
+      "f1": 39.46,
+      "overlap_tokens": 58
+    }
+  },
+  "rag": {
+    "bleu": {
+      "bleu_1": 48.48,
+      "bleu_2": 36.97,
+      "bleu_3": 29.38,
+      "bleu_4": 23.94
+    },
+    "overlap": {
+      "precision": 58.16,
+      "recall": 49.4,
+      "f1": 53.42,
+      "overlap_tokens": 82
+    }
+  }
+}

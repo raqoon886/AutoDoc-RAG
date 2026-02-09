@@ -1,64 +1,65 @@
 **Module Overview**
 ================
 
-This module, `sample_middleware.cpp`, provides a sample implementation of a middleware service for Ubuntu. It demonstrates the basic structure and functionality of a middleware service, including configuration, initialization, running, and stopping.
-
-The code is organized into two main components: the `Config` struct, which holds the service's configuration settings, and the `ServiceManager` class, which manages the lifecycle of the service.
+The `sample_middleware.cpp` file implements a sample middleware service for Ubuntu. This module follows the principles of modular design and separation of concerns, as described in the C++ Core Guidelines (SF.20: Use namespaces to express logical structure). The middleware service is designed to manage its lifecycle, including initialization, running, and stopping.
 
 **Classes/Structs**
 -----------------
 
 ### Config
 
-* **Description**: The `Config` struct represents the configuration settings for the middleware service. It includes three members:
-	+ `service_name`: A string representing the name of the service.
-	+ `port`: An integer representing the port number on which the service listens.
-	+ `enable_logging`: A boolean indicating whether logging is enabled for the service.
-* **Member Variables**: None
-* **Methods**: None
+*   **Description**: Configuration structure for the service.
+    *   This struct represents the configuration settings for the middleware service, including the service name, port number, and logging enablement. The use of a separate `Config` struct is in line with the C++ Core Guidelines (SF.2: A header file must not contain object definitions or non-inline function definitions), which emphasizes the importance of separating declarations from definitions.
+*   **Member Variables**:
+    *   `service_name`: The name of the service.
+    *   `port`: The port number on which the service listens.
+    *   `enable_logging`: A boolean indicating whether logging is enabled for the service.
+*   **Methods**: None.
 
 ### ServiceManager
 
-* **Description**: The `ServiceManager` class manages the lifecycle of the middleware service. It provides methods for initializing, running, and stopping the service.
-* **Member Variables**:
-	+ `config_`: A reference to the `Config` struct holding the service's configuration settings.
-	+ `is_running_`: A boolean indicating whether the service is currently running.
-* **Methods**:
+*   **Description**: Manages the lifecycle of the middleware service.
+    *   This class encapsulates the logic for initializing, running, and stopping the middleware service. The use of a separate `ServiceManager` class follows the principles of object-oriented design and separation of concerns.
+*   **Member Variables**:
+    *   `config_`: A reference to the configuration settings for the service.
+    *   `is_running_`: A boolean indicating whether the service is currently running.
+*   **Methods**:
 
-#### ServiceManager(const Config& config)
+    #### ServiceManager(const Config& config)
 
-* **Signature**: `ServiceManager(const Config& config)`
-* **Description**: Initializes a new instance of the `ServiceManager` class with the given `Config` struct.
-* **Parameters**: `config`: A reference to the `Config` struct holding the service's configuration settings.
-* **Return Value**: None
+    *   **Signature**: `ServiceManager(const Config& config)`
+    *   **Description**: Initializes a new instance of the `ServiceManager` class with the specified configuration settings.
+    *   **Parameters**:
+        +   `config`: A reference to the configuration settings for the service.
+    *   **Return Value**: None.
 
-#### ~ServiceManager()
+    #### ~ServiceManager()
 
-* **Signature**: `~ServiceManager()`
-* **Description**: Destroys an instance of the `ServiceManager` class, stopping the service if it is currently running.
-* **Parameters**: None
-* **Return Value**: None
+    *   **Signature**: `~ServiceManager()`
+    *   **Description**: Destroys an instance of the `ServiceManager` class, stopping the middleware service if it is currently running.
+    *   **Parameters**: None.
+    *   **Return Value**: None.
 
-#### bool initialize()
+    #### bool initialize()
 
-* **Signature**: `bool initialize()`
-* **Description**: Initializes the middleware service with the given configuration settings. Returns true if initialization is successful, false otherwise.
-* **Parameters**: None
-* **Return Value**: A boolean indicating whether initialization was successful.
+    *   **Signature**: `bool initialize()`
+    *   **Description**: Initializes the middleware service with the specified configuration settings.
+    *   **Parameters**: None.
+    *   **Return Value**: A boolean indicating whether initialization was successful.
 
-#### void run()
+    #### void run()
 
-* **Signature**: `void run()`
-* **Description**: Starts the main loop of the middleware service.
-* **Parameters**: None
-* **Return Value**: None
+    *   **Signature**: `void run()`
+    *   **Description**: Starts the main loop of the middleware service.
+    *   **Parameters**: None.
+    *   **Return Value**: None.
 
-#### void stop()
+    #### void stop()
 
-* **Signature**: `void stop()`
-* **Description**: Stops the middleware service.
-* **Parameters**: None
-* **Return Value**: None
+    *   **Signature**: `void stop()`
+    *   **Description**: Stops the middleware service.
+    *   **Parameters**: None.
+    *   **Return Value**: None.
 
 **Functions**
 -------------
@@ -68,30 +69,28 @@ None.
 **Usage Example**
 ----------------
 
-Here is an example of how to use the key components of this module:
 ```cpp
+#include "sample_middleware.h"
+
 int main() {
-    // Create a new Config struct with sample values
     Config config;
     config.service_name = "MyService";
     config.port = 8080;
     config.enable_logging = true;
 
-    // Initialize a new ServiceManager instance with the sample Config
-    Middleware::ServiceManager manager(config);
-
-    // Start the service
-    manager.run();
-
-    // Stop the service after 5 seconds (for demo purposes)
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-    manager.stop();
+    ServiceManager manager(config);
+    if (manager.initialize()) {
+        manager.run();
+    } else {
+        std::cerr << "Failed to initialize service." << std::endl;
+    }
 
     return 0;
 }
 ```
+
 **Related References**
 ----------------------
 
-* [VectorDB Architecture Document](link to relevant document): This module is part of the VectorDB architecture, which provides a scalable and efficient data storage solution.
-* [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines): This module follows the C++ Core Guidelines for coding style and best practices.
+*   C++ Core Guidelines: [https://isocpp.github.io/CppCoreGuidelines](https://isocpp.github.io/CppCoreGuidelines)
+*   Working Draft, Extensions to C++ for Modules: [Modules, Componentization, and Transition Enforcement](https://isocpp.org/files/modules.pdf)
