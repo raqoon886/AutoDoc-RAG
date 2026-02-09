@@ -33,7 +33,20 @@
 
 ## 3. 실행 방법 (Usage)
 
-### 3.1 환경 설정
+### 3.1 Local LLM Setup (Ollama)
+본 프로젝트는 **Local RAG**를 지향하므로 Ollama가 필수입니다.
+1. [Ollama 공식 홈페이지](https://ollama.com/)에서 설치합니다.
+2. 터미널에서 다음 명령어로 모델을 다운로드(pull)합니다.
+```bash
+# LLM (Llama 3.1 8B)
+ollama pull llama3.1:8b
+
+# Embedding Model (Nomic Embed Text)
+ollama pull nomic-embed-text
+```
+3. Ollama 서버가 백그라운드에서 실행 중인지 확인합니다. (보통 설치 후 자동 실행됨)
+
+### 3.2 Python 환경 설정
 ```bash
 # 가상환경 생성 및 패키지 설치
 uv pip install -r requirements.txt
@@ -43,14 +56,14 @@ source .venv/bin/activate
 ./setup_test_data.sh
 ```
 
-### 3.2 데이터 수집 (Ingestion)
+### 3.3 데이터 수집 (Ingestion)
 VectorDB에 문서와 코드를 학습시킵니다.
 ```bash
 # 예: Python 공식 문서 학습
 python src/ingest_data.py --source ground_truth/python/
 ```
 
-### 3.3 문서 생성 (Generation)
+### 3.4 문서 생성 (Generation)
 소스 코드를 입력받아 API 문서를 생성합니다 (No-RAG vs RAG).
 ```bash
 # No-RAG 모드 (단순 LLM 생성)
@@ -60,7 +73,7 @@ python src/generate_docs.py target_file.py --mode no-rag
 python src/generate_docs.py target_file.py --mode rag
 ```
 
-### 3.4 평가 (Evaluation)
+### 3.5 평가 (Evaluation)
 생성된 문서를 Ground Truth와 비교 평가합니다.
 ```bash
 # LLM-as-a-Judge 평가 (정성 평가)
