@@ -13,17 +13,21 @@
 
 ---
 
-## 2. 수집 데이터 (Dataset & Ground Truth)
-다양한 언어의 대표적인 오픈소스 프로젝트를 수집하여 **Ground Truth(정답)** 데이터셋을 구축했습니다.
+## 2. 수집 데이터 (Reference Dataset for RAG)
+미들웨어 개발 및 문서화에 필요한 **표준 가이드라인과 명세서**를 수집하여 VectorDB에 구축했습니다.
+이 데이터는 RAG 생성 시, 문서의 구조와 용어를 결정하는 **Reference Context**로 활용됩니다.
 
-| 언어 | 프로젝트 | 설명 | Ground Truth 출처 |
-|---|---|---|---|
-| **Python** | **Requests** | HTTP 요청 라이브러리 | Official Docs (readthedocs.io) |
-| **C** | **SQLite** | 경량 데이터베이스 | Doxygen generated |
-| **C** | **NetworkManager** | 네트워크 설정 데몬 | Official D-Bus API Docs |
-| **C++** | **nlohmann/json** | Modern C++ JSON | Doxygen generated |
-| **Rust** | **Tokio** | 비동기 런타임 | `cargo doc` output |
-| **Go** | **Gin** | 웹 프레임워크 | `gomarkdoc` output |
+| 카테고리 | 문서 | URL |
+|---|---|---|
+| **Architecture** | **arc42** | [Overview](https://arc42.org/overview) |
+| **Diagram** | **Mermaid.js** | [Intro](https://mermaid.js.org/intro/) |
+| **Interface** | **D-Bus Spec** | [Specification](https://dbus.freedesktop.org/doc/dbus-specification.html) |
+| **Documentation** | **Doxygen** | [Markdown Support](https://www.doxygen.nl/manual/markdown.html) |
+| **Style Guide** | **Google C++** | [Style Guide](https://google.github.io/styleguide/cppguide.html) |
+| **Style Guide** | **C++ Core Guidelines** | [GitHub](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) |
+| **Style Guide** | **Protobuf** | [Style Guide](https://protobuf.dev/programming-guides/style/) |
+| **System** | **systemd** | [Service Unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) |
+| **Build** | **CMake** | [Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) |
 
 ---
 
