@@ -4,3 +4,4 @@ __pycache__/
 *$py.class
 data/vector_db/
 .DS_Store
+ingest_web.log
