@@ -1,4 +1,4 @@
-# AutoDoc-RAG: Middleware AI Assistant
+# AutoDoc-RAG: L3(LLL) RAG Systems for API-Doc Generation
 
 ## 1. 프로젝트 개요 (Project Goal)
 **미들웨어 설계서 및 소스 코드를 학습(RAG)하여 API 문서를 자동 생성하고 평가하는 에이전트 시스템**입니다.
