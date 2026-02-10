@@ -5,3 +5,4 @@ __pycache__/
 data/vector_db/
 .DS_Store
 ingest_web.log
+test_data/
